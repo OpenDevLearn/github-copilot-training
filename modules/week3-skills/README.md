@@ -4,7 +4,7 @@
 
 ## Mental Model
 
-A **skill** is a reusable, parameterized instruction set that an agent can invoke by name. Think of skills as **functions for AI behavior** — they accept inputs, follow a defined procedure, and produce structured outputs.
+A **skill** is a reusable, parameterized instruction set that an agent can invoke by name. These are folders of instructions, scripts, and resources that Copilot can load when relevant to improve its performance in specialized tasks. Think of skills as **functions for AI behavior** — they accept inputs, follow a defined procedure, and produce structured outputs.
 
 ```mermaid
 graph LR
@@ -22,6 +22,11 @@ graph LR
 
 **Key principle:** Skills are **stateless** and **idempotent**. Given the same input, a skill produces the same output regardless of how many times it runs. Skills compose — complex behaviors emerge from chaining simple skills.
 
+**Copilot supports:**
+
+- Project skills, stored in your repository (.github/skills or .claude/skills)
+- Personal skills, stored in your home directory and shared across projects (~/.copilot/skills or ~/.claude/skills) (Copilot coding agent and GitHub Copilot CLI only)
+
 ### When NOT to Use
 - ❌ One-off tasks that won't be repeated
 - ❌ Tasks requiring persistent state across invocations
@@ -29,6 +34,50 @@ graph LR
 - ❌ When the task changes significantly each time (low reuse value)
 
 ---
+
+## Creating Agent Skills for GitHub Copilot and Copilot CLI
+
+Agent skills are defined as structured folders containing a `SKILL.md` file (with YAML frontmatter and documentation), scripts, and any supporting resources. To create a new skill:
+
+1. **Directory Structure**  
+  Place each skill in its own folder under `.github/skills/` (project scope) or `~/.copilot/skills/` (personal scope):
+
+  ```
+  .github/
+    skills/
+     my-skill/
+      SKILL.md
+      script.py
+      resources/
+  ```
+
+2. **Define Metadata**  
+  In `SKILL.md`, include YAML frontmatter specifying `name`, `description`, `version`, `parameters`, and `dependencies`. See [Pattern 1: Skill Definition](#pattern-1-skill-definition-skillmd) for an example.
+
+3. **Implement Logic**  
+  Add scripts or resources referenced in the skill. Scripts can be in any language supported by your environment.
+
+4. **Parameterize**  
+  Declare all inputs in the `parameters` section. The agent will validate and supply these when invoking the skill.
+
+5. **Test Locally**  
+  Use the Copilot CLI to invoke your skill with test inputs:
+
+  ```sh
+  copilot agent skill run my-skill --target_path=src/
+  ```
+
+6. **Chain Skills (Optional)**  
+  To compose skills, define a `chain` section in the YAML frontmatter. See [Pattern 2: Skill Composition](#pattern-2-skill-composition-chaining).
+
+7. **Version and Document**  
+  Maintain a `CHANGELOG.md` and update the version on every change.
+
+**References:**
+- [About agent skills documentation](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills)
+- [Create agent skills](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/create-skills)
+- [Copilot CLI usage](https://docs.github.com/en/copilot/cli/getting-started-with-github-copilot-cli)
+
 
 ## Implementation Patterns
 

@@ -18,6 +18,7 @@ Copilot CLI is a **natural-language shell interface** that translates intent int
 
 **Key principle:** CLI automation replaces manual shell workflows. Every action is auditable, repeatable, and Git-traceable.
 
+
 ### When NOT to Use
 - ❌ Real-time production operations (use proper runbooks/tooling)
 - ❌ Operations requiring transactional guarantees across systems
@@ -25,6 +26,12 @@ Copilot CLI is a **natural-language shell interface** that translates intent int
 - ❌ Sensitive operations that need formal change management beyond Git
 
 ---
+
+**References**
+- [About copilot CLI](https://docs.github.com/en/copilot/concepts/agents/copilot-cli/about-copilot-cli)
+- [allowing-tools-to-be-used-without-manual-approval](https://docs.github.com/en/copilot/concepts/agents/copilot-cli/about-copilot-cli#allowing-tools-to-be-used-without-manual-approval)
+
+
 
 ## Implementation Patterns
 

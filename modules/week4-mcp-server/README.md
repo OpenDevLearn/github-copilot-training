@@ -4,7 +4,7 @@
 
 ## Mental Model
 
-An **MCP (Model Context Protocol) server** is a standalone service that exposes custom tools and capabilities to AI agents. Think of it as a **plugin architecture for AI** — agents discover and invoke tools via a standardized protocol.
+An **MCP (Model Context Protocol) server** is a standalone service that exposes custom tools and capabilities to AI agents. Think of it as a **plugin architecture for AI** — agents discover and invoke tools via a standardized protocol. You use MCP to extend the capabilities of Copilot coding agent by connecting it to other tools and services. The agent can use tools provided by local and remote MCP servers. 
 
 ```mermaid
 graph LR
@@ -22,6 +22,17 @@ graph LR
 ```
 
 **Key principle:** MCP servers enforce **sandboxed execution** with explicit resource boundaries. Every tool has defined inputs, outputs, error contracts, and timeouts.
+
+
+**Default MCP Servers**
+The following MCP servers are configured automatically for Copilot coding agent:
+
+GitHub: The GitHub MCP server gives Copilot access to GitHub data like issues and pull requests. To learn more, see Using the (GitHub MCP Server)[https://docs.github.com/en/copilot/customizing-copilot/using-model-context-protocol/using-the-github-mcp-server].
+
+**References**
+- [MCP and coding agent](https://docs.github.com/en/copilot/concepts/agents/coding-agent/mcp-and-coding-agent)
+- [Extending Github Copilot by Setting up MCP server](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/extend-coding-agent-with-mcp)
+- [MCP servers for custom agents](https://docs.github.com/en/copilot/reference/custom-agents-configuration#mcp-server-configuration-details)
 
 ### When NOT to Use
 - ❌ Simple one-off scripts (use Copilot CLI directly)

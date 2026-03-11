@@ -6,6 +6,8 @@
 
 A custom agent is a **constrained AI persona** with a defined scope, tool access policy, and planning strategy. Think of it as a role-based automation actor with explicit boundaries — not an open-ended assistant.
 
+They act like tailored teammates that follow your standards, use the right tools, and implement team-specific practices. You define these agents once instead of repeatedly providing the same instructions and context.
+
 ```mermaid
 graph TD
     A[Agent Definition .agent.md] --> B[Persona & Constraints]
@@ -24,6 +26,12 @@ graph TD
 
 **Key principle:** Denial-by-default. An agent has ZERO tool access until explicitly granted. Every capability is an opt-in decision.
 
+You define custom agents using Markdown files called agent profiles. These files specify prompts, tools, and MCP servers. This allows you to encode your conventions, frameworks, and desired outcomes directly into Copilot.
+
+**References**
+[About custom agents](https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-custom-agents)
+[Creating custom agents for Copilot coding agent](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/create-custom-agents)
+
 ### When NOT to Use
 - ❌ Simple, one-shot queries (use Copilot Chat directly)
 - ❌ Tasks that don't benefit from persistent persona context
@@ -31,6 +39,55 @@ graph TD
 - ❌ Cross-system orchestration requiring transactional guarantees
 
 ---
+
+## Agent Profile Format
+
+Custom agents are defined using Markdown files with a `.agent.md` extension. Each agent profile encodes the agent's persona, constraints, allowed tools, and operational boundaries in a structured frontmatter block, followed by detailed instructions and policies.
+
+**Basic Structure:**
+
+```markdown
+---
+name: <agent-identifier>
+description: <short summary of agent's purpose>
+tools:
+  - <allowed_tool_1>
+  - <allowed_tool_2>
+deny:
+  - <denied_tool_1>
+  - <denied_tool_2>
+---
+
+# <Agent Name>
+
+## Persona
+Describe the agent's expertise, background, and mindset.
+
+## Constraints
+List explicit rules the agent must follow (e.g., read-only, scope limits).
+
+## Denial Policy
+Detail what the agent cannot do (e.g., no file writes, no network access).
+
+## Output Format
+Define the required structure for agent responses.
+
+## Escalation
+Specify conditions that require human intervention or review.
+```
+
+**Key Points:**
+- **Frontmatter**: YAML block at the top declares agent metadata and tool access.
+- **Persona**: Sets the agent’s role and expertise.
+- **Constraints & Denial Policy**: Clearly state boundaries and forbidden actions.
+- **Output Format**: Ensures consistent, structured results.
+- **Escalation**: Outlines when to stop and alert a human.
+
+**Example:** See the "Pattern 1: Agent Persona Definition" section above for a full sample.
+
+
+
+
 
 ## Implementation Patterns
 
